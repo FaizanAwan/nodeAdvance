@@ -40,7 +40,7 @@ afterEach(async () => {
 test.only('check session', async () => {
 
     const id = '5b49d37e33797d21dc486c12';
-    jest.setTimeout(10000)
+    jest.setTimeout(10000);
     const Buffer = require('safe-buffer').Buffer;
     const sessionObject = {
         passport: {
