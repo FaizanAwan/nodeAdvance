@@ -13,7 +13,7 @@ beforeEach(async () => {
     page = await browser.newPage();
     await page.goto('localhost:3000');
 
-});
+},20000);
 
 afterEach(async () => {
     // await browser.close();
@@ -40,7 +40,6 @@ afterEach(async () => {
 test.only('check session', async () => {
 
     const id = '5b49d37e33797d21dc486c12';
-    jest.setTimeout(10000);
     const Buffer = require('safe-buffer').Buffer;
     const sessionObject = {
         passport: {
@@ -62,9 +61,11 @@ test.only('check session', async () => {
     await page.setCookie({ name: 'session.sig', value: sig });
 
     await page.goto('localhost:3000');
-    await page.waitFor('a[href="/auth/logout/"]');
+   
+    await page.waitFor('a[href="/auth/logout"]');
 
-    const text = await page.$eval('a[href="/auth/logout/"]',el=>el.innerHTML)
+    const text = await page.$eval('a[href="/auth/logout"]', el => el.innerHTML)
     expect(text).toEqual('Logout');
+    
 
 });
