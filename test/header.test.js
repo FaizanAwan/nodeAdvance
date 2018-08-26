@@ -12,7 +12,7 @@ beforeEach(async()=>{
      page = await browser.newPage();
     await page.goto('localhost:3000');
 
-},20000);
+},45000);
 
 afterEach(async()=>{
     await browser.close();
@@ -35,3 +35,26 @@ test("Click and check url",async () => {
     const url = page.url();
     expect(url).toMatch(/accounts\.google\.com/);
 });
+
+
+test('check sessions', async()=>{
+
+    const id = '5b49d37e33797d21dc486c12';
+
+    const Buffer = require('safe-buffer').Buffer;
+    const sessionObject = {
+        passport:{
+            user: id
+        }
+    };
+
+
+    const sessionString = Buffer.from(JSON.stringify(sessionObject)).toString('base64');
+        
+    const Keygrip = require('keygrip');
+    const keys = require('../config/keys');
+    const keygrip= new Keygrip([keys.cookiekey]);
+    const sig = keygrip.sign('session='+sessionString);
+
+    console.log(sessionString,sig);
+})
